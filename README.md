@@ -13,20 +13,20 @@
 ![image](https://user-images.githubusercontent.com/87049112/138379342-52b683ac-06a2-474a-a41d-6bf985b4658a.png)
 
 4. Learning parameters:
-dpdparams.order_poly = 3+2*1
-dpdparams.depth_memory = 1+2*1
-dpdparams.depth_lag = 2
-dpdparams.depth_memory_lag = 2
-dpdparams.order_poly_lag = 2
-dpdparams.Niterations = 20
-dpdparams.learning_rate = 0.8
-dpdparams.learning_method = []
-dpdparams.flag_even_order_poly = 1
-dpdparams.flag_conj = 0;   % Conjugate branch. Currently only set up for MP (lag = 0)
-dpdparams.flag_dc_term = 0; % Adds an additional term for DC
-dpdparams.flag_LS_exclude_zero_second = 0
-dpdparams.modelfit = 'WIN' % 'GMP'/'HAM'/'WIN'
-dpdparams.learning_arc = 'DLA';
+- dpdparams.order_poly = 3+2*1
+- dpdparams.depth_memory = 1+2*1
+- dpdparams.depth_lag = 2
+- dpdparams.depth_memory_lag = 2
+- dpdparams.order_poly_lag = 2
+- dpdparams.Niterations = 20
+- dpdparams.learning_rate = 0.8
+- dpdparams.learning_method = []
+- dpdparams.flag_even_order_poly = 1
+- dpdparams.flag_conj = 0;   % Conjugate branch. Currently only set up for MP (lag = 0)
+- dpdparams.flag_dc_term = 0; % Adds an additional term for DC
+- dpdparams.flag_LS_exclude_zero_second = 0
+- dpdparams.modelfit = 'WIN' % 'GMP'/'HAM'/'WIN'
+- dpdparams.learning_arc = 'DLA';
 
 5. DPD learning and curvefit iteration
 ![image](https://user-images.githubusercontent.com/87049112/138372239-15930747-b7b3-4a5e-a36a-acb57c78eed2.png)
