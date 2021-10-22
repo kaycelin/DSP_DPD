@@ -46,5 +46,10 @@
 - PAR, 2C        
 ![image](https://user-images.githubusercontent.com/87049112/138379029-180d9daf-ed52-4f15-a0b9-d208473f7fb5.png)
 
+10. Add Ripple to ORX full bandwidth
+- paRipple = 10 %% 2021-10-22, Add Ripple to ORX
+- DPD result: evm:0.7091%, ACLR:49dB, the Ripple will be optimizied by learning
+![image](https://user-images.githubusercontent.com/87049112/138404320-60f545aa-bd0a-40fe-9126-7e1b605f4cee.png)
+
 
 
