@@ -1,6 +1,7 @@
 %% PA1, 2021-05-27
 %% PA2, 2021-06-15
 %% PA3, 2021-10-18
+%% PA4, 2021-10-22, Add Ripple to ORX
 
 clear all
 close all
@@ -17,7 +18,7 @@ switch signalType
                 load('waveform_OFDM_20MHz_122p88MHz.mat') % 1C
                 bwInband = 9e6*[-1 1] % 1C
                 gain = 1;
-
+                
             case '2C'
                 load('waveform_OFDM_20MHz_2C_122p88MHz.mat') % 1C
                 %         load('waveform_OFDM_20MHz_2C_245p76MHz.mat') % 2C
@@ -31,7 +32,7 @@ switch signalType
         fs = 122.88e6*NUps
         x = signal*gain;
         Nsamps = numel(x)
-
+        
         
     case 'cw'
         tx_length = 2^17;
@@ -60,17 +61,24 @@ switch PA_board
         dbm_power = -30;
         pa = webRF_g(dbm_power, fs);
     case 'Memoryless'
-        IIP3dBm = 40
-        AMPMdeg = 1
-        LinearGaindB = 20
-        PowerUpperLimit = 45
-        Ripple = 0
+        paIIP3dBm = 40
+        paAMPMdeg = 1
+        paLinearGaindB = 20
+        paPowerUpperLimit = 45
+        paRippledB = 0 %% 2021-10-22, Add Ripple to ORX
+        paSNRdBin = [] %% 2021-11-08, Add AWGN before pa
         
-        pa = DPD_PA_MemorylessNonlinearity_g('IIP3dBm',IIP3dBm,'AMPMdeg',AMPMdeg,...
-            'LinearGaindB',LinearGaindB,'PwrdBmLimitUpper',PowerUpperLimit,...
-            'Ripple',Ripple);
+        pa = DPD_PA_MemorylessNonlinearity_g('IIP3dBm',paIIP3dBm,'AMPMdeg',paAMPMdeg,...
+            'LinearGaindB',paLinearGaindB,'PwrdBmLimitUpper',paPowerUpperLimit,...
+            'Ripple',paRippledB,'SNRdB',paSNRdBin);
 end
 
+dipsLegend = [];
+if exist('paRippledB','var')&&(paRippledB~=0)
+    dispRipple = [', paRippledB:',num2str(paRippledB),'dB'];
+else
+    dispRipple = [];
+end
 fnum = 101901
 %% input:
 PdBm_x = 10*log10(mean(abs(x).^2))+30
@@ -80,6 +88,10 @@ y = pa(x);
 PdBm_y = 10*log10(mean(abs(y).^2))+30
 [PAR_x] = CCDF_g(x, Nsamps, fnum, 'x')
 [PAR_y] = CCDF_g(y, Nsamps, fnum, 'y')
+
+% %% input: Add Ripple to ORX
+% RippleORX = 2
+% [y, evmRippleORX, ~] = SYM_MagRippleEQApp(y, RippleORX, fs, bwInband, bwInband, [], [], []);
 
 %% plot: ACLR
 aclr_offset = 20e6;
@@ -102,8 +114,8 @@ dpdparams.flag_conj = 0;   % Conjugate branch. Currently only set up for MP (lag
 dpdparams.flag_dc_term = 0; % Adds an additional term for DC
 dpdparams.flag_LS_exclude_zero_second = 0
 dpdparams.modelfit = 'WIN' % 'GMP'/'HAM'/'WIN'
-dpdparams.modelfit = 'HAM' % 'GMP'/'HAM'/'WIN'
-dpdparams.modelfit = 'GMP' % 'GMP'/'HAM'/'WIN'
+% dpdparams.modelfit = 'HAM' % 'GMP'/'HAM'/'WIN'
+% dpdparams.modelfit = 'GMP' % 'GMP'/'HAM'/'WIN'
 
 % dpdparams.CFR.flag = 1;
 % dpdparams.CFR.fs = fs;
@@ -112,8 +124,8 @@ dpdparams.modelfit = 'GMP' % 'GMP'/'HAM'/'WIN'
 % dpdparams.paprdB_limit = 7.5;
 % dpdparams.evm = 9.5e6*[-1,1];
 dpdparams.evm = bwInband;
-dpdparams.learning_arc = 'DLA';
-dpdparams.learning_arc = 'ILA';
+dpdparams.learning_arc = 'DLA'; % better!
+% dpdparams.learning_arc = 'ILA'; % worse!!
 dpdparams.fnum = 0721;
 
 dpdparams.flag_Multicarrier = flag_carriers;
@@ -123,20 +135,54 @@ plt.fs = fs
 plt.bwInband = bwInband
 plt.offset = 20e6;
 
-%% output: dpd learning
-dpd = DPD_ILA_g(dpdparams);
-[y_paOut_DPD, u_paIn_DPD] = dpd.DPD_learning(x, pa, plt, []);
-ACLR_calc_g(y_paOut_DPD, fs, bwInband, aclr_offset, [fnum+1], [], [], [], ['y+DPD'], [], flag_carriers)
-[PAR_yDPD] = CCDF_g(y_paOut_DPD, Nsamps, fnum, 'y+DPD')
+dpdparams.ORX_RippledB = 0;
+dpdparams.ORX_SNRdB = 10;
+Sweep_ORX_SNRdB = []
+Sweep_ORX_RippledB = 0:2:10
+for k=1:numel(Sweep_ORX_RippledB)
+    dpdparams.ORX_RippledB = Sweep_ORX_RippledB(k);
+    
+    if isempty(Sweep_ORX_SNRdB)
+        Ni = 1
+    else
+        Ni = numel(Sweep_ORX_SNRdB)
+    end
+    for i=1:Ni
+        try
+            dpdparams.ORX_SNRdB = Sweep_ORX_SNRdB(i);
+            catach
+            dpdparams.ORX_SNRdB = Sweep_ORX_SNRdB;
+        end
+        %% output: dpd learning
+        dpd = DPD_ILA_g(dpdparams);
+        [y_DPD, u_paIn_DPD] = dpd.DPD_learning(x, pa, plt, []);
+    end
+end
+dipsLegend = [dipsLegend, dispRipple]
+ACLRdB_y = ACLR_calc_g(y_DPD, fs, bwInband, aclr_offset, [fnum+1], [], [], [], ['y+DPD',dipsLegend], [], flag_carriers)
+[PAR_yDPD] = CCDF_g(y_DPD, Nsamps, fnum, 'y+DPD')
 
 %% export
 plt_win.RBW = 1000*fs/numel(x);
 plt_win.winType = 'brickwall';
 PLOT_FFT_dB_WIN_g(x, fs, length(x), ['pa in,',flag_carriers], 'df', plt_win, 'pwr', fnum+2); hold on
 PLOT_FFT_dB_WIN_g(y, fs, length(x), ['pa out,',flag_carriers], 'df', plt_win, 'pwr', fnum+2); hold on
-PLOT_FFT_dB_WIN_g(y_paOut_DPD, fs, length(x), ['pa out+DPD,',flag_carriers], 'df', plt_win, 'pwr', fnum+2); hold on
+PLOT_FFT_dB_WIN_g(y_DPD, fs, length(x), ['pa out+DPD,',flag_carriers], 'df', plt_win, 'pwr', fnum+2); hold on
+
+%% DPD coef.
+xDPD = dpd.sigOut_u_predistort;
+yDPD2 = pa(xDPD);
+PLOT_FFT_dB_WIN_g(yDPD2, fs, length(x), ['pa out+DPD,',flag_carriers], 'df', plt_win, 'pwr', fnum+2); hold on
 
 
-
-
-
+flag_debug = 1
+if flag_debug
+    try
+        k
+    catch
+        k=1
+    end
+    x1(k) = dpdparams.ORX_SNRdB
+    y1(k) = min(ACLRdB_y.ACLRdBLeft, ACLRdB_y.ACLRdBRight)
+    k=k+1
+end
