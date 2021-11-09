@@ -51,5 +51,12 @@
 - DPD result: evm:0.7091%, ACLR:49dB, the Ripple will be optimizied by learning
 ![image](https://user-images.githubusercontent.com/87049112/138404320-60f545aa-bd0a-40fe-9126-7e1b605f4cee.png)
 
+2021-11-09,               
+11. Add ORX SNR parameter, sweep SNRdB 50:-10:10
+- dpdparams.ORX_SNRdB = 10
+- The ORX SNR decrease to 10dB, that impact the DPD ACLR results about 3dB.
+![image](https://user-images.githubusercontent.com/87049112/140844716-5812d57f-fbcc-4f98-818d-21b83fd62b6e.png)
 
-
+12. Add ORX Ripple(Fullband 122.88MHz) parameter, sweep RippledB 0:2:10
+- The ACLR will be unbalanced and results worse about 4dB at Low freqs.
+![image](https://user-images.githubusercontent.com/87049112/140856955-f252a472-4587-4315-a348-f818b64d21e8.png)
