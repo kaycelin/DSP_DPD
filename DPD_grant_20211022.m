@@ -124,8 +124,8 @@ dpdparams.modelfit = 'WIN' % 'GMP'/'HAM'/'WIN'
 % dpdparams.paprdB_limit = 7.5;
 % dpdparams.evm = 9.5e6*[-1,1];
 dpdparams.evm = bwInband;
-dpdparams.learning_arc = 'DLA'; % better!
-% dpdparams.learning_arc = 'ILA'; % worse!!
+dpdparams.learning_arc = 'DLA'; % better! (Direct Learning Architecture)
+% dpdparams.learning_arc = 'ILA'; % worse!! (Indirect Learning Architecture)
 dpdparams.fnum = 0721;
 
 dpdparams.flag_Multicarrier = flag_carriers;
@@ -150,11 +150,11 @@ for k=1:numel(Sweep_ORX_RippledB)
     for i=1:Ni
         try
             dpdparams.ORX_SNRdB = Sweep_ORX_SNRdB(i);
-            catach
+        catch
             dpdparams.ORX_SNRdB = Sweep_ORX_SNRdB;
         end
         %% output: dpd learning
-        dpd = DPD_ILA_g(dpdparams);
+        dpd = DPD_ILA_DLA_g(dpdparams);
         [y_DPD, u_paIn_DPD] = dpd.DPD_learning(x, pa, plt, []);
     end
 end
