@@ -60,3 +60,8 @@
 12. Add ORX Ripple(Fullband 122.88MHz) parameter, sweep RippledB 0:2:10
 - The ACLR will be unbalanced and results worse about 4dB at Low freqs.
 ![image](https://user-images.githubusercontent.com/87049112/140856955-f252a472-4587-4315-a348-f818b64d21e8.png)
+
+## going to do...
+13. compare the DPD ACLR performance between differenet ACLR source ?
+14. compare the ccdf 0.01% between different modulation type?
+15. 
