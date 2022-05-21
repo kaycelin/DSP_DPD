@@ -62,9 +62,24 @@
 ![image](https://user-images.githubusercontent.com/87049112/140856955-f252a472-4587-4315-a348-f818b64d21e8.png)
 
 ## going to do...
-13. compare the DPD ACLR performance between differenet ACLR source ?
+13. compare the DPD ACLR performance between differenet ACLR source ? 
+ 
+| ACLR(dB)     | w/o AWGN         | w/ AWGN 40dB|
+| -------------| -------------    | --------    |
+| x            | 55               | 47          |
+| y            | 32               | 32          |
+| y+DPD        | 51               | 46          |
+
+![image](https://user-images.githubusercontent.com/87049112/169646757-fdb64a80-17ea-493c-9ba9-082c552eab79.png)
+
 14. compare the ccdf 0.01% between different modulation type?
 15. compare the DPD performance between different source IBW ?
-16. compare the input source x' = x add dpd coeffiecents ?
-17. compare the input source x and x' at time domain and frequency spectrum
+16. compare the input source x' = x add dpd coeffiecents ?    
+![image](https://user-images.githubusercontent.com/87049112/169651422-21d86170-7bdb-44c3-8c9d-574a92f34b67.png)
+![image](https://user-images.githubusercontent.com/87049112/169651617-a6f053ee-77a2-43db-9da5-6c411692c3e0.png)
+
+17. compare the input source x and x' at time domain and frequency spectrum   
+![image](https://user-images.githubusercontent.com/87049112/169651497-e560f4d3-aa30-4f6a-8a54-22d3cb8209e1.png)
+
 18. Add PA memory model and run DPD
+19. 
