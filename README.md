@@ -74,12 +74,10 @@
 
 14. compare the ccdf 0.01% between different modulation type?
 15. compare the DPD performance between different source IBW ?
-16. compare the input source x' = x add dpd coeffiecents ?    
+16. compare the input source x' = x add dpd coeffiecents at time and freqency domain?    
 ![image](https://user-images.githubusercontent.com/87049112/169651422-21d86170-7bdb-44c3-8c9d-574a92f34b67.png)
 ![image](https://user-images.githubusercontent.com/87049112/169651617-a6f053ee-77a2-43db-9da5-6c411692c3e0.png)
-
-17. compare the input source x and x' at time domain and frequency spectrum   
 ![image](https://user-images.githubusercontent.com/87049112/169651497-e560f4d3-aa30-4f6a-8a54-22d3cb8209e1.png)
 
-18. Add PA memory model and run DPD
-19. 
+17. Add PA memory model and run DPD
+18. 
