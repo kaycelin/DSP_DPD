@@ -40,6 +40,21 @@
 ![image](https://user-images.githubusercontent.com/87049112/138375185-99ac0e48-d4e4-41f0-a2c7-6402d142daa1.png)
 
 9. 2C signal
+
+|              | 1C Pwr(dBm) | 2C Pwr(dBm) |
+| -------------| ----------- | --------    |
+| x            | 14.9        | 11.89, 11.89|
+| y            | 34.8        | 31.80, 31.80|
+| y+DPD        | 35.0        | 31.92, 31.92|
+|              | 1C ACLR(dBm)      | 2C ACLR(dBm), (L1,C,U1) |
+| x            | 55.2, 55.1        | 54.6, 52.1, 54.6         |
+| y            | 32.7, 32.7        | 32.6, 29.7, 32.6         |
+| y+DPD        | 47.9, 46.9        | 50.4, 48.4, 50.5         |
+|              | 1C PAR (dB) | 2C PAR (dB)  |
+| x            | 10.9        | 13.9         |
+| y            | 10.6        | 13.8         |
+| y+DPD        | 11.1        | 13.3         |
+
 ![image](https://user-images.githubusercontent.com/87049112/138378577-f7c11296-f872-4de7-a206-f58ed3907540.png)
 - intermodulation improvement, 2C
 ![image](https://user-images.githubusercontent.com/87049112/138378911-e7db40a0-4006-417b-977f-a770e5663c38.png)
@@ -49,16 +64,41 @@
 10. Add Ripple to ORX full bandwidth
 - paRipple = 10 %% 2021-10-22, Add Ripple to ORX
 - DPD result: evm:0.7091%, ACLR:49dB, the Ripple will be optimizied by learning
+
+| pa Ripple (dB)   | ACLR L(dB)   | ACLR U(dB)  |
+| -------------    | -------------| --------    |
+| 0                | 51.7         | 51.5        |
+| 10               | 49.25        | 49.9        |
+
 ![image](https://user-images.githubusercontent.com/87049112/138404320-60f545aa-bd0a-40fe-9126-7e1b605f4cee.png)
 
 2021-11-09,               
 11. Add ORX SNR parameter, sweep SNRdB 50:-10:10
 - dpdparams.ORX_SNRdB = 10
-- The ORX SNR decrease to 10dB, that impact the DPD ACLR results about 3dB.
+- The ORX SNR decrease to 10dB, that impact the DPD ACLR results about 3dB.  
+
+| ORXSNR (dB)   | ACLR (dB)         | EVM (%)|
+| -------------| -------------    | --------    |
+| 50           | 51.7, 51.5       | 0.38        |
+| 40           | 51.7, 51.5       | 0.38        |
+| 30           | 51.6, 51.4       | 0.38        |
+| 20           | 51.0, 51.2       | 0.40        |
+| 10           | 48.1, 48.4       | 0.68        |
+
 ![image](https://user-images.githubusercontent.com/87049112/140844716-5812d57f-fbcc-4f98-818d-21b83fd62b6e.png)
 
 12. Add ORX Ripple(Fullband 122.88MHz) parameter, sweep RippledB 0:2:10
 - The ACLR will be unbalanced and results worse about 4dB at Low freqs.
+
+| ORX Ripple (dB) | ACLR L(dB) | ACLR U(dB) |EVM (%)   |diff ACLR (dB)|
+| ------------    | --------   | --------   | -------- |--------      |
+| 0               | 51.7       | 51.5       | 0.38     | 0.2          |
+| 2               | 51.0       | 51.9       | 1.06     | 0.9          |
+| 4               | 50.3       | 52.1       | 2.01     | 1.8          |
+| 6               | 49.5       | 52.0       | 2.99     | 2.5          |
+| 8               | 48.7       | 51.7       | 3.97     | 3            |
+| 10              | 47.8       | 51.3       | 4.96     | 3.5          |
+
 ![image](https://user-images.githubusercontent.com/87049112/140856955-f252a472-4587-4315-a348-f818b64d21e8.png)
 
 ## going to do...
