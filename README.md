@@ -113,6 +113,31 @@
 ![image](https://user-images.githubusercontent.com/87049112/169646757-fdb64a80-17ea-493c-9ba9-082c552eab79.png)
 
 14. compare the ccdf 0.01% between different modulation type?
+- PA settings:  
+
+| Parameters | paIIP3dBm | paAMPMdeg | paLinearGaindB | paPowerUpperLimit |
+| -----------| ----------| --------  | --------       | --------          |
+|            | 31dBm     | 1deg      | 20dB           | 35dBm             |
+
+- x, y, y+DPD, PAR vs ACLR  
+
+|       | w/o CFR _ PAR(dB) | w/ CFR _ PAR(dB) | w/o CFR _ Pwr(dBm) | w/ CFR _ Pwr(dBm) | w/o CFR _ ACLR(dB)  | w/ CFR _ ACLR(dB)  |
+| ------| -------------     | --------         | --------           | --------          | --------            | --------           |
+| x     | 10.9              | 7.5              | 14.99              | 14.96             | 55.22/ 55.17        | 55.06/ 55.02       |
+| y     | 8.1               | 6.6              | 34.54              | 34.52             | 31.46/ 31.44        | 31.63/ 31.65       |
+| y+DPD | 8.1               | 7.4              | 34.54              | 34.55             | 44.35/ 44.46        | 50.30/ 50.21       |
+
+![image](https://user-images.githubusercontent.com/87049112/170856426-113587d8-91e5-4948-9ebe-77bd2e47e785.png)
+![image](https://user-images.githubusercontent.com/87049112/170856433-b67d7cc0-9d88-4376-b4ab-8a83b9e507ab.png)
+
+- y+DPD, EVM (compare to x, what is the CFR contribute to EVM ?)
+
+| ACLR(dB)     | w/o CFR _ EVM | w/ CFR _ EVM |
+| -------------| ------------- | --------     |
+| y+DPD        | 1.05          | 0.47         |
+
+![image](https://user-images.githubusercontent.com/87049112/170856403-59d88942-0368-4247-882c-6e26ba9a8719.png)
+
 15. compare the DPD performance between different source IBW ?
 16. compare the input source x' = x add dpd coeffiecents at time and freqency domain?    
 ![image](https://user-images.githubusercontent.com/87049112/169651422-21d86170-7bdb-44c3-8c9d-574a92f34b67.png)
@@ -120,4 +145,4 @@
 ![image](https://user-images.githubusercontent.com/87049112/169651497-e560f4d3-aa30-4f6a-8a54-22d3cb8209e1.png)
 
 17. Add PA memory model and run DPD
-18. 
+18. What is the CFR contribute to EVM ?
