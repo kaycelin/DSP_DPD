@@ -148,3 +148,4 @@
 17b. Compare PA memory model of the AMAM, AMPM of w/i and w/o DPD
 18. What is the CFR contribute to EVM ?
 19. Releationship between OIP3dBm and ACLR, w/i and w/o DPD
+20. CCDF at 7.5, 8.5, 9.5 condidtions, w/i and w/o DPD
