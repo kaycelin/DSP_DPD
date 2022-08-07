@@ -145,4 +145,6 @@
 ![image](https://user-images.githubusercontent.com/87049112/169651497-e560f4d3-aa30-4f6a-8a54-22d3cb8209e1.png)
 
 17. Add PA memory model and run DPD
+17b. Compare PA memory model of the AMAM, AMPM of w/i and w/o DPD
 18. What is the CFR contribute to EVM ?
+19. Releationship between OIP3dBm and ACLR, w/i and w/o DPD
