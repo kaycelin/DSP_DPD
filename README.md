@@ -1,4 +1,4 @@
-# Study_DSP_DPD
+# DSP_DPD
 - offline DPD study
 - DPD model reference from https://github.com/ctarver/ILA-DPD
 
